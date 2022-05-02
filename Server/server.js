@@ -5,11 +5,11 @@ let express = require('express');
 let app = express();
 
 app.get('/desktop.html', (req, res) => {
-  res.sendFile('desktop.html', { root: __dirname });
+  res.sendFile('DeskstopClient/desktop.html', { root: __dirname });
 });
 
 app.get('/phone.html', (req, res) => {
-    res.sendFile('phone.html', { root: __dirname });
+    res.sendFile('PhoneClient/phone.html', { root: __dirname });
 });
 
 app.listen(7500, function (err) {
