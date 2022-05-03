@@ -4,12 +4,22 @@ const webSocketServer = new WebSocket.Server({ port:8500 });
 let express = require('express');
 let app = express();
 
+var path = require('path')
+
 app.get('/desktop.html', (req, res) => {
-  res.sendFile('../DeskstopClient/desktop.html', { root: __dirname });
+	res.sendFile(path.resolve('../DesktopClient/desktop.html'));
+});
+
+app.get('/desktop.js', (req, res) => {
+	res.sendFile(path.resolve('../DesktopClient/desktop.js'));
 });
 
 app.get('/phone.html', (req, res) => {
-    res.sendFile('../PhoneClient/phone.html', { root: __dirname });
+    res.sendFile(path.resolve('../PhoneClient/phone.html'));
+});
+
+app.get('/phone.js', (req, res) => {
+	res.sendFile(path.resolve('../PhoneClient/phone.js'));
 });
 
 app.listen(7500, function (err) {
