@@ -19,6 +19,7 @@ app.get('/phone.html', (req, res) => {
 });
 
 app.get('/phone.js', (req, res) => {
+	console.log("aaa");
 	res.sendFile(path.resolve('./PhoneClient/phone.js'));
 });
 
@@ -50,6 +51,12 @@ webSocketServer.on('connection', (webSocketConnection) => {
 
         if (message == "hello, this is desktop client") {
 			desktopClient.push(webSocketConnection)
+		}
+
+		if (message == "Orientation Data") {
+			console.log("Alpha", content[3])
+			console.log("Beta", content[4])
+			console.log("Gamma", content[5])
 		}
     
     });
