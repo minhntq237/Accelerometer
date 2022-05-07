@@ -102,7 +102,7 @@ module.exports = new RotationInfoList()
 },{"./WebsocketConnection.js":2}],2:[function(require,module,exports){
 const websocketServerPortNumber = 8500
 const localWebsocketServer = `ws://localhost:${websocketServerPortNumber}/`
-const outsideWebsocketServer = `wss://accelero-6fqtd.ondigitalocean.app:${websocketServerPortNumber}/`
+const outsideWebsocketServer = `wss://web-socket-server-4gv9m.ondigitalocean.app/`
 
 
 class WebsocketConnection {
