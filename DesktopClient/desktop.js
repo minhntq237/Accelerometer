@@ -10,6 +10,7 @@ WebSocketConnection.websocket.onmessage = function incoming(info) {
     let message = parsedInfo.message;
     let content = parsedInfo.content;
     console.log(parsedInfo);
+
     if (message === "nice to meet you, desktop client") {
         console.log("everything is working as expected, server connected")
     };
@@ -168,13 +169,16 @@ class PhoneRotation {
         const updateValue = () => {
             let gammaValueArray = returnGammaValuesArray()
             let randomGammaValue = selectRandomElementInArray(gammaValueArray)
-            WebSocketConnection.on('message', async (data) => {
-                let parsedData = JSON.parse(data)
-                let message = parsedData.message
-                let content = parsedData.content
 
-                this.phoneModel.updatePhoneRotation(content.gamma)
-            })
+            WebSocketConnection.websocket.onmessage = function incoming(data) {
+                let parsedData = JSON.parse(data.data);
+                let message = parsedData.message;
+                let content = parsedData.content;
+                
+                if (message === "Orientation Data") {
+                    this.phoneModel.updatePhoneRotation(content.gamma)
+                };
+            };
         }
         setInterval(updateValue, 300)
     }
