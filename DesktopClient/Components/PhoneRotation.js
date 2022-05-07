@@ -173,9 +173,10 @@ class PhoneRotation {
                 let parsedData = JSON.parse(data.data);
                 let message = parsedData.message;
                 let content = parsedData.content;
+                console.log(parsedData)
                 
                 if (message === "Orientation Data") {
-                    this.phoneModel.updatePhoneRotation(content.gamma)
+                    this.phoneModel.updatePhoneRotation(content[2])
                 };
             };
         }
