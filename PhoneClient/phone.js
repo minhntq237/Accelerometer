@@ -60,6 +60,7 @@ class RotationInfoList {
             let gamma = event.gamma;
             
             this.updateInfo(0, 0, 0, alpha, beta, gamma) 
+            WebSocketConnection.sendDataToWebSocketServer("Orientation Data", [0, 0, 0, alpha, beta, gamma])
         });
     }
 
