@@ -177,7 +177,7 @@ class PhoneRotation {
                 console.log(parsedData)
                 
                 if (message === "Orientation Data") {
-                    this.phoneModel.updatePhoneRotation(content[2])
+                    this.phoneModel.updatePhoneRotation(content['gamma'])
                 };
             };
         }
