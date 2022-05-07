@@ -1,3 +1,20 @@
+const WebSocketConnection = require("./WebsocketConnection.js")
+
+WebSocketConnection.websocket.onopen = function() {
+    WebSocketConnection.sendDataToWebSocketServer("hello, this is desktop client", "no content")
+};
+
+WebSocketConnection.websocket.onmessage = function incoming(info) {
+    let parsedInfo = JSON.parse(info.data);
+    let message = parsedInfo.message;
+    let content = parsedInfo.content;
+    console.log(parsedInfo);
+    if (message === "nice to meet you, desktop client") {
+        console.log("everything is working as expected, server connected")
+    };
+};
+
+
 class PhoneModel {
     constructor() {
         this.phoneModelElement = document.createElement("div")
@@ -122,12 +139,15 @@ class PhoneRotation {
 
     updateInfoList() {
         const updateValue = () => {
-            const randArray = [0, 0, 0, 0, 0, 0]
-            const randomArray = randArray.map(() => Math.random());
-            this.infoList.updateInfo(randomArray[0], randomArray[1], randomArray[2], randomArray[3], randomArray[4], randomArray[5])
-        }
+            WebSocketConnection.on('message', async (data) => {
+                let parsedData = JSON.parse(data)
+                let message = parsedData.message
+                let content = parsedData.content
+                console.log(message)
+            this.infoList.updateInfo(0, 0, 0, content.alpha, content.beta, content.gamma)
+        });
         setInterval(updateValue, 300)
-    }
+    }}
 
     updatePhoneModel() {
         
@@ -147,10 +167,12 @@ class PhoneRotation {
         const updateValue = () => {
             let gammaValueArray = returnGammaValuesArray()
             let randomGammaValue = selectRandomElementInArray(gammaValueArray)
-            window.addEventListener('deviceorientation', (event) => {
-                let realGammaValue = event.gamma
-                console.log(realGammaValue)
-                this.phoneModel.updatePhoneRotation(realGammaValue)
+            WebSocketConnection.on('message', async (data) => {
+                let parsedData = JSON.parse(data)
+                let message = parsedData.message
+                let content = parsedData.content
+
+                this.phoneModel.updatePhoneRotation(content.gamma)
             })
         }
         setInterval(updateValue, 300)

@@ -1,4 +1,21 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const WebSocketConnection = require("./WebsocketConnection.js")
+
+WebSocketConnection.websocket.onopen = function() {
+    WebSocketConnection.sendDataToWebSocketServer("hello, this is desktop client", "no content")
+};
+
+WebSocketConnection.websocket.onmessage = function incoming(info) {
+    let parsedInfo = JSON.parse(info.data);
+    let message = parsedInfo.message;
+    let content = parsedInfo.content;
+    console.log(parsedInfo);
+    if (message === "nice to meet you, desktop client") {
+        console.log("everything is working as expected, server connected")
+    };
+};
+
+
 class PhoneModel {
     constructor() {
         this.phoneModelElement = document.createElement("div")
@@ -123,12 +140,15 @@ class PhoneRotation {
 
     updateInfoList() {
         const updateValue = () => {
-            const randArray = [0, 0, 0, 0, 0, 0]
-            const randomArray = randArray.map(() => Math.random());
-            this.infoList.updateInfo(randomArray[0], randomArray[1], randomArray[2], randomArray[3], randomArray[4], randomArray[5])
-        }
+            WebSocketConnection.on('message', async (data) => {
+                let parsedData = JSON.parse(data)
+                let message = parsedData.message
+                let content = parsedData.content
+                console.log(message)
+            this.infoList.updateInfo(0, 0, 0, content.alpha, content.beta, content.gamma)
+        });
         setInterval(updateValue, 300)
-    }
+    }}
 
     updatePhoneModel() {
         
@@ -148,10 +168,12 @@ class PhoneRotation {
         const updateValue = () => {
             let gammaValueArray = returnGammaValuesArray()
             let randomGammaValue = selectRandomElementInArray(gammaValueArray)
-            window.addEventListener('deviceorientation', (event) => {
-                let realGammaValue = event.gamma
-                console.log(realGammaValue)
-                this.phoneModel.updatePhoneRotation(realGammaValue)
+            WebSocketConnection.on('message', async (data) => {
+                let parsedData = JSON.parse(data)
+                let message = parsedData.message
+                let content = parsedData.content
+
+                this.phoneModel.updatePhoneRotation(content.gamma)
             })
         }
         setInterval(updateValue, 300)
@@ -167,7 +189,23 @@ module.exports = new PhoneRotation()
 
 
 //Phone UI
-},{}],2:[function(require,module,exports){
+},{"./WebsocketConnection.js":2}],2:[function(require,module,exports){
+const websocketServerPortNumber = 8500
+const localWebsocketServer = `ws://localhost:${websocketServerPortNumber}/`
+const outsideWebsocketServer = `wss://web-socket-server-4gv9m.ondigitalocean.app/`
+
+
+class WebsocketConnection {
+    constructor(thisWebsocketClass) {
+        this.websocket = new thisWebsocketClass(outsideWebsocketServer)
+    }
+    sendDataToWebSocketServer(thisMessage, thisContent) {
+        this.websocket.send(JSON.stringify({message: thisMessage, content: thisContent}));
+    }
+}
+
+module.exports = new WebsocketConnection(WebSocket)
+},{}],3:[function(require,module,exports){
 const PhoneRotation = require("./Components/PhoneRotation.js")
 
 class PageBody {
@@ -198,4 +236,4 @@ pageBody.initialize()
 
 
 
-},{"./Components/PhoneRotation.js":1}]},{},[2]);
+},{"./Components/PhoneRotation.js":1}]},{},[3]);
