@@ -170,17 +170,19 @@ class PhoneRotation {
             let gammaValueArray = returnGammaValuesArray()
             let randomGammaValue = selectRandomElementInArray(gammaValueArray)
 
+            var self = this;
+
             WebSocketConnection.websocket.onmessage = function incoming(data) {
                 let parsedData = JSON.parse(data.data);
                 let message = parsedData.message;
-                let content = parsedData.content;
+                var content = parsedData.content;
                 console.log(parsedData)
                 
                 if (message === "Orientation Data") {
-                    console.log(typeof(content.gamma));
-                    this.phoneModel.updatePhoneRotation(content.gamma)
+                    self.phoneModel.updatePhoneRotation(content.gamma)
                 };
             };
+            
         }
         setInterval(updateValue, 300)
     }
