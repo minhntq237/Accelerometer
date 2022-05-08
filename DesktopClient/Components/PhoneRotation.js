@@ -24,9 +24,11 @@ class PhoneModel {
 
     updatePhoneRotation(rotationDegree) {
         this.phoneRotationDegree = rotationDegree
-        /* if (this.phoneRotationDegree > 180) {
+        /* 
+        if (this.phoneRotationDegree > 180) {
             this.phoneRotationDegree = 0
-        } */
+        } 
+        */
         this.phoneModelElement.style.transform = `rotate(${this.phoneRotationDegree}deg)`
     }
 
@@ -150,7 +152,7 @@ class PhoneRotation {
         setInterval(updateValue, 300)
     }}
 
-    updatePhoneModel() {
+    updatePhoneModel = () => {
         
         function returnGammaValuesArray() {
             let numberArray = []
@@ -169,16 +171,16 @@ class PhoneRotation {
             let gammaValueArray = returnGammaValuesArray()
             let randomGammaValue = selectRandomElementInArray(gammaValueArray)
 
-            var self = this;
+            /* var self = this; */
 
-            WebSocketConnection.websocket.onmessage = function incoming(data) {
+            WebSocketConnection.websocket.onmessage = (data) => {
                 let parsedData = JSON.parse(data.data);
                 let message = parsedData.message;
                 var content = parsedData.content;
                 console.log(parsedData)
                 
                 if (message === "Orientation Data") {
-                    self.phoneModel.updatePhoneRotation(content.gamma)
+                    this.phoneModel.updatePhoneRotation(content.gamma)
                 };
             };
             
