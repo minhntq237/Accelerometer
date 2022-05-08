@@ -25,9 +25,9 @@ class PhoneModel {
 
     updatePhoneRotation(rotationDegree) {
         this.phoneRotationDegree = rotationDegree
-        if (this.phoneRotationDegree > 180) {
+        /* if (this.phoneRotationDegree > 180) {
             this.phoneRotationDegree = 0
-        }
+        } */
         this.phoneModelElement.style.transform = `rotate(${this.phoneRotationDegree}deg)`
     }
 
