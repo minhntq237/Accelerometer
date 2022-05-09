@@ -28,6 +28,7 @@ WebSocketConnection.websocket.onmessage = function incoming(info) {
     if (message === "nice to meet you, desktop client") {
         console.log("everything is working as expected, server connected")
     };
+
 };
 
 module.exports = WebSocketConnection

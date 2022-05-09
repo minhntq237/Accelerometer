@@ -1,0 +1,12 @@
+Main tasks:
+
+1, Connect desktop to phone
+DONE- Server generate unique ID 
+DONE - Send unique ID to Desktop
+- Desktop display unique ID on screen
+- Phone input Desktop ID
+- Phone will be paired with Desktop
+
+2, Test websocket connection
+
+3, Change to phone rotation
