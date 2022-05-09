@@ -224,7 +224,7 @@ class WebsocketConnection {
     }
 }
 
-let WebSocketConnection = new WebsocketConnection()
+let WebSocketConnection = new WebsocketConnection(WebSocket)
 
 WebSocketConnection.websocket.onopen = function() {
     WebSocketConnection.sendDataToWebSocketServer("hello, this is desktop client", "no content")
