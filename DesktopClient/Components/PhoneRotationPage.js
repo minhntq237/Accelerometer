@@ -1,21 +1,5 @@
 const WebSocketConnection = require("./WebsocketConnection.js")
 
-WebSocketConnection.websocket.onopen = function() {
-    WebSocketConnection.sendDataToWebSocketServer("hello, this is desktop client", "no content")
-};
-
-WebSocketConnection.websocket.onmessage = function incoming(info) {
-    let parsedInfo = JSON.parse(info.data);
-    let message = parsedInfo.message;
-    let content = parsedInfo.content;
-    console.log(parsedInfo);
-
-    if (message === "nice to meet you, desktop client") {
-        console.log("everything is working as expected, server connected")
-    };
-};
-
-
 class PhoneModel {
     constructor() {
         this.phoneModelElement = document.createElement("div")

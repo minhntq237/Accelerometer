@@ -1,22 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const WebSocketConnection = require("./WebsocketConnection.js")
 
-WebSocketConnection.websocket.onopen = function() {
-    WebSocketConnection.sendDataToWebSocketServer("hello, this is desktop client", "no content")
-};
-
-WebSocketConnection.websocket.onmessage = function incoming(info) {
-    let parsedInfo = JSON.parse(info.data);
-    let message = parsedInfo.message;
-    let content = parsedInfo.content;
-    console.log(parsedInfo);
-
-    if (message === "nice to meet you, desktop client") {
-        console.log("everything is working as expected, server connected")
-    };
-};
-
-
 class PhoneModel {
     constructor() {
         this.phoneModelElement = document.createElement("div")
@@ -198,6 +182,8 @@ class PhoneRotationPage {
 module.exports = new PhoneRotationPage()
 
 },{"./WebsocketConnection.js":3}],2:[function(require,module,exports){
+const WebSocketConnection = require("./WebsocketConnection.js")
+
 class WaitingRoomPage {
     constructor() {
         this.waitingRoomPageElement = document.createElement("div")
@@ -210,13 +196,19 @@ class WaitingRoomPage {
         this.waitingRoomPageElement.style.justifyContent = "center"
         this.waitingRoomPageElement.style.height = "auto"
         this.waitingRoomPageElement.style.minHeight = "100%"
+        this.waitingRoomPageElement.innerHTML = "TEST TEST TEST"
         this.waitingRoomPageElement.style.backgroundColor = "red"
+
         return this.waitingRoomPageElement
+    }
+
+    displayUniqueIDfromServer(uniqueID) {
+        this.waitingRoomPageElement.innerHTML = "Room ID: " + uniqueID
     }
 }
 
 module.exports = new WaitingRoomPage();
-},{}],3:[function(require,module,exports){
+},{"./WebsocketConnection.js":3}],3:[function(require,module,exports){
 const websocketServerPortNumber = 8500
 const localWebsocketServer = `ws://localhost:${websocketServerPortNumber}/`
 const outsideWebsocketServer = `wss://web-socket-server-4gv9m.ondigitalocean.app/`
@@ -226,12 +218,30 @@ class WebsocketConnection {
     constructor(thisWebsocketClass) {
         this.websocket = new thisWebsocketClass(outsideWebsocketServer)
     }
+
     sendDataToWebSocketServer(thisMessage, thisContent) {
         this.websocket.send(JSON.stringify({message: thisMessage, content: thisContent}));
     }
 }
 
-module.exports = new WebsocketConnection(WebSocket)
+let WebSocketConnection = new WebsocketConnection()
+
+WebSocketConnection.websocket.onopen = function() {
+    WebSocketConnection.sendDataToWebSocketServer("hello, this is desktop client", "no content")
+};
+
+WebSocketConnection.websocket.onmessage = function incoming(info) {
+    let parsedInfo = JSON.parse(info.data);
+    let message = parsedInfo.message;
+    let content = parsedInfo.content;
+    console.log(parsedInfo);
+
+    if (message === "nice to meet you, desktop client") {
+        console.log("everything is working as expected, server connected")
+    };
+};
+
+module.exports = WebSocketConnection
 },{}],4:[function(require,module,exports){
 const PhoneRotationPage = require("./Components/PhoneRotationPage.js")
 const WaitingRoomPage = require("./Components/WaitingRoomPage.js")
