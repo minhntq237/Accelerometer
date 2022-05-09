@@ -128,6 +128,9 @@ class PhoneRotation {
         this.phoneRotationElement.appendChild(this.phoneModel.initialize())
         this.phoneRotationElement.appendChild(this.changeRotationButton.initialize())
         this.phoneRotationElement.appendChild(this.infoList.initialize())
+        // this.updateInfoList()
+        this.updatePhoneModel()
+        this.listenToDeviceOrientation()
         return this.phoneRotationElement
     }
 
@@ -155,6 +158,7 @@ class PhoneRotation {
 
     updatePhoneModel = () => {
         
+        /* 
         function returnGammaValuesArray() {
             let numberArray = []
             for (let i=-90;i<90;i++) {
@@ -167,12 +171,13 @@ class PhoneRotation {
             // https://stackoverflow.com/questions/5915096/get-a-random-item-from-a-javascript-array
             const randomElement = arrayOfChoice[Math.floor(Math.random()*arrayOfChoice.length)] 
             return randomElement
-        }
+        } 
+        */
         const updateValue = () => {
+            /* 
             let gammaValueArray = returnGammaValuesArray()
-            let randomGammaValue = selectRandomElementInArray(gammaValueArray)
-
-            /* var self = this; */
+            let randomGammaValue = selectRandomElementInArray(gammaValueArray) 
+            */
 
             WebSocketConnection.websocket.onmessage = (data) => {
                 let parsedData = JSON.parse(data.data);
@@ -192,13 +197,6 @@ class PhoneRotation {
 
 module.exports = new PhoneRotation()
 
-
-
-
-
-
-
-//Phone UI
 },{"./WebsocketConnection.js":2}],2:[function(require,module,exports){
 const websocketServerPortNumber = 8500
 const localWebsocketServer = `ws://localhost:${websocketServerPortNumber}/`
@@ -232,11 +230,7 @@ class PageBody {
         this.pageBodyElement.style.minHeight = "100%"
         this.pageBodyElement.style.zIndex = "-1"
         this.pageBodyElement.style.overflow = "auto"
-        const phoneRotation = PhoneRotation
-        this.pageBodyElement.appendChild(phoneRotation.initialize())
-        // phoneRotation.updateInfoList()
-        phoneRotation.updatePhoneModel()
-        phoneRotation.listenToDeviceOrientation()
+        this.pageBodyElement.appendChild(PhoneRotation.initialize())
         document.body.appendChild(this.pageBodyElement);
     }
 }
