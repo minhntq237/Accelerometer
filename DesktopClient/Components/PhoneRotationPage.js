@@ -109,7 +109,7 @@ class changeRotationButton {
     }
 }
 
-class PhoneRotation {
+class PhoneRotationPage {
     constructor() {
         this.phoneRotationElement = document.createElement("div");
         this.phoneModel = new PhoneModel()
@@ -194,4 +194,4 @@ class PhoneRotation {
     }
 }
 
-module.exports = new PhoneRotation()
+module.exports = new PhoneRotationPage()

@@ -110,7 +110,7 @@ class changeRotationButton {
     }
 }
 
-class PhoneRotation {
+class PhoneRotationPage {
     constructor() {
         this.phoneRotationElement = document.createElement("div");
         this.phoneModel = new PhoneModel()
@@ -195,9 +195,28 @@ class PhoneRotation {
     }
 }
 
-module.exports = new PhoneRotation()
+module.exports = new PhoneRotationPage()
 
-},{"./WebsocketConnection.js":2}],2:[function(require,module,exports){
+},{"./WebsocketConnection.js":3}],2:[function(require,module,exports){
+class WaitingRoomPage {
+    constructor() {
+        this.waitingRoomPageElement = document.createElement("div")
+    }
+
+    initialize() {
+        this.waitingRoomPageElement.style.position = "relative"
+        this.waitingRoomPageElement.style.display = "flex"
+        this.waitingRoomPageElement.style.alignContent = "center"
+        this.waitingRoomPageElement.style.justifyContent = "center"
+        this.waitingRoomPageElement.style.height = "auto"
+        this.waitingRoomPageElement.style.minHeight = "100%"
+        this.waitingRoomPageElement.style.backgroundColor = "red"
+        return this.waitingRoomPageElement
+    }
+}
+
+module.exports = new WaitingRoomPage();
+},{}],3:[function(require,module,exports){
 const websocketServerPortNumber = 8500
 const localWebsocketServer = `ws://localhost:${websocketServerPortNumber}/`
 const outsideWebsocketServer = `wss://web-socket-server-4gv9m.ondigitalocean.app/`
@@ -213,8 +232,9 @@ class WebsocketConnection {
 }
 
 module.exports = new WebsocketConnection(WebSocket)
-},{}],3:[function(require,module,exports){
-const PhoneRotation = require("./Components/PhoneRotation.js")
+},{}],4:[function(require,module,exports){
+const PhoneRotationPage = require("./Components/PhoneRotationPage.js")
+const WaitingRoomPage = require("./Components/WaitingRoomPage.js")
 
 class PageBody {
     constructor() {
@@ -230,7 +250,8 @@ class PageBody {
         this.pageBodyElement.style.minHeight = "100%"
         this.pageBodyElement.style.zIndex = "-1"
         this.pageBodyElement.style.overflow = "auto"
-        this.pageBodyElement.appendChild(PhoneRotation.initialize())
+        // this.pageBodyElement.appendChild(PhoneRotationPage.initialize())
+        this.pageBodyElement.appendChild(WaitingRoomPage.initialize())
         document.body.appendChild(this.pageBodyElement);
     }
 }
@@ -240,4 +261,4 @@ pageBody.initialize()
 
 
 
-},{"./Components/PhoneRotation.js":1}]},{},[3]);
+},{"./Components/PhoneRotationPage.js":1,"./Components/WaitingRoomPage.js":2}]},{},[4]);
