@@ -14,7 +14,6 @@ WebSocketConnection.websocket.onmessage = function incoming(info) {
     if (message === "nice to meet you, phone client") {
         console.log("everything is working as expected, server connected")
     }
-
 };
 
 class RotationInfoList {
@@ -102,7 +101,7 @@ module.exports = new RotationInfoList()
 },{"./WebsocketConnection.js":2}],2:[function(require,module,exports){
 const websocketServerPortNumber = 8500
 const localWebsocketServer = `ws://localhost:${websocketServerPortNumber}/`
-const outsideWebsocketServer = `wss://web-socket-server-4gv9m.ondigitalocean.app/`
+const outsideWebsocketServer = `wss://lobster-app-r3ifa.ondigitalocean.app/`
 
 
 class WebsocketConnection {
