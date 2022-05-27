@@ -260,7 +260,7 @@ module.exports = new WaitingRoomPage();
 },{"./WebsocketConnection.js":3}],3:[function(require,module,exports){
 const websocketServerPortNumber = 8500
 const localWebsocketServer = `ws://localhost:${websocketServerPortNumber}/`
-const outsideWebsocketServer = `wss://web-socket-server-4gv9m.ondigitalocean.app/`
+const outsideWebsocketServer = `wss://lobster-app-r3ifa.ondigitalocean.app/`
 
 
 class WebsocketConnection {
