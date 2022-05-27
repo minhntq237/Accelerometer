@@ -15,8 +15,8 @@ class PageBody {
         this.pageBodyElement.style.minHeight = "100%"
         this.pageBodyElement.style.zIndex = "-1"
         this.pageBodyElement.style.overflow = "auto"
-        // this.pageBodyElement.appendChild(PhoneRotationPage.initialize())
-        this.pageBodyElement.appendChild(WaitingRoomPage.initialize())
+        this.pageBodyElement.appendChild(PhoneRotationPage.initialize())
+        //this.pageBodyElement.appendChild(WaitingRoomPage.initialize())
         document.body.appendChild(this.pageBodyElement);
     }
 }
