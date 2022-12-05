@@ -260,7 +260,7 @@ module.exports = new WaitingRoomPage();
 },{"./WebsocketConnection.js":3}],3:[function(require,module,exports){
 const websocketServerPortNumber = 8500
 const localWebsocketServer = `ws://localhost:${websocketServerPortNumber}/`
-const outsideWebsocketServer = `https://sea-turtle-app-jqjka.ondigitalocean.app/`
+const outsideWebsocketServer = `wss://stingray-app-s8sep.ondigitalocean.app/`
 
 
 class WebsocketConnection {
@@ -315,10 +315,5 @@ class PageBody {
         document.body.appendChild(this.pageBodyElement);
     }
 }
-
-let pageBody = new PageBody()
-pageBody.initialize()
-
-
 
 },{"./Components/PhoneRotationPage.js":1,"./Components/WaitingRoomPage.js":2}]},{},[4]);
