@@ -1,6 +1,6 @@
 const websocketServerPortNumber = 8500
 const localWebsocketServer = `ws://localhost:${websocketServerPortNumber}/`
-const outsideWebsocketServer = `wss://stingray-app-s8sep.ondigitalocean.app/`
+const outsideWebsocketServer = `wss://sea-turtle-app-jqjka.ondigitalocean.app/`
 
 
 class WebsocketConnection {
