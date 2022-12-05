@@ -20,8 +20,3 @@ class PageBody {
         document.body.appendChild(this.pageBodyElement);
     }
 }
-
-let pageBody = new PageBody()
-pageBody.initialize()
-
-
